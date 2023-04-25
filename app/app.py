@@ -1,19 +1,33 @@
-from flask import Flask
-from flask import render_template
-from flask import request
+from flask import Flask,request,redirect,render_template,send_from_directory
+import os
  
 app = Flask(__name__)
  
 @app.route("/")
 def home_page():
-    return render_template('index.html')
+    dir_path = 'imgfile'
 
-@app.route("/chenge1")
-def chenge1_page():
-    return render_template('chenge1.html')
+    files = os.listdir(dir_path)
 
-@app.route("/chenge2",methods=['POST'])
-def chenge2_page():
-    if request.method == 'POST':
-     content = request.form.get('content')
-     return render_template('chenge2.html',content=content)
+    return render_template('index.html', files=files)
+
+@app.route('/slideshow')
+def slideshow():
+
+    dir_path = 'imgfile'
+
+    files = os.listdir(dir_path)
+
+    return render_template('slideshow.html', files=files)
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    file = request.files['file']
+
+    upload_dir = 'imgfile'
+
+    if not os.path.exists(upload_dir):
+        os.makedirs(upload_dir)
+
+    file.save(os.path.join(upload_dir, file.filename))
+    return redirect('/')

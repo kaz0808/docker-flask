@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>練習用</title>
+    <title>設定画面</title>
 </head>
+
 <body>
-    <h1>Dockerとflaskを使ってみる</h1>
-    <a href="/chenge1">ページ遷移１</a>
-    <form action="/chenge2" method="POST">
-        <input type="text" name="content">
-        <input type="submit" value="ページ遷移２">
+    <h2>ファイル一覧</h2>
+    <ul>
+        {% for file in files %}
+        <li>{{ file }}</li>
+        {% endfor %}
+    </ul>
+    <h2>ファイル取り込み</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
     </form>
+    <a href="/slideshow">表示画面に移動する</a>
 </body>
+
 </html>
