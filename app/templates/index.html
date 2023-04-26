@@ -12,7 +12,11 @@
     <h2>ファイル一覧</h2>
     <ul>
         {% for file in files %}
-        <li>{{ file }}</li>
+        <form action="/delete" method="post">
+            <li>{{ file }}</li>
+            <input type="hidden" name="filename" value="{{file}}">
+            <input type="submit" value="削除">
+        </form>
         {% endfor %}
     </ul>
     <h2>ファイル取り込み</h2>
@@ -20,7 +24,12 @@
         <input type="file" name="file">
         <input type="submit" value="Upload">
     </form>
-    <a href="/slideshow">表示画面に移動する</a>
+    <h2>表示設定</h2>
+    <form action="/slideshow" method="post">
+        <p>表示切り替え時間（秒）</p>
+        <input type="text" name="time">
+        <input type="submit" value="表示画面へ移動する">
+    </form>
 </body>
 
 </html>

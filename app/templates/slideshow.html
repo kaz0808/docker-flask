@@ -6,14 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>表示画面</title>
+    <script>
+        var files = {{ files | tojson }};
+        var index = 0;
+        var time = Number('{{time}}');
+        var interval = setInterval(function() {
+            index = (index + 1) % files.length;
+            var imageUrl = "imgfile/" + files[index];  // ファイルのURLを組み立てる
+            document.getElementById('slideshow').innerHTML = '<img src="' + imageUrl + '">';  // 画像を更新
+        }, 1000*time);  // 3秒ごとにスライドを切り替える
+    </script>
 </head>
 
 <body>
     <h1>表示画面</h1>
     <div id="slideshow">
-        {% for file in files %}
-        <li><img src="{{'imgfile/'+ file}}" width="400" height="300"></li>
-        {% endfor %}
+        <img src="{{'imgfile/' + files[0]}}">
     </div>
 </body>
 
